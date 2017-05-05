@@ -25,5 +25,6 @@ describe("node window", () => {
     assert.equal((document.getElementById("the-link") as HTMLAnchorElement).href, "alink");
     assert.ok(window);
     assert.ok(screen);
+    assert.ok((window as any).AudioContext);
   });
 });

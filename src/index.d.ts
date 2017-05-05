@@ -1,7 +1,7 @@
-declare module "wavesurfer" {
+declare namespace wavesurfer {
   type Disposer = () => void;
 
-  interface WavesurferOptions {
+  export interface WavesurferOptions {
     /**
      * Use your own previously initialized AudioContext or leave blank
      */
@@ -151,24 +151,26 @@ declare module "wavesurfer" {
      * If a scrollbar is present, center the waveform around the progress
      */
     autoCenter?: boolean;
+
+
   }
 
   /**
-*    audioprocess: Fires continuously as the audio plays. Also fires on seeking.
-*    error: Occurs on error. Callback will receive (string) error message.
-*    finish: When it finishes playing.
-*    loading: Fires continuously when loading via XHR or drag'n'drop.
-*        Callback will receive (integer) loading progress in percents [0..100] and (object) event target.
-*    pause: When audio is paused.
-*    play: When play starts.
-*    ready: When audio is loaded, decoded and the waveform drawn.
-*        This fires before the waveform is drawn when using MediaElement, see waveform-ready.
-*    scroll: When the scrollbar is moved. Callback will receive a ScrollEvent object.
-*    seek: On seeking. Callback will receive (float) progress [0..1].
-*    waveform-ready: Fires after the waveform is drawn when using the MediaElement backend.
-*      If your using the WebAudio backend you can use ready.
-*   zoom: On zooming. Callback will receive (integer) minPxPerSec.
-*/
+  *    audioprocess: Fires continuously as the audio plays. Also fires on seeking.
+  *    error: Occurs on error. Callback will receive (string) error message.
+  *    finish: When it finishes playing.
+  *    loading: Fires continuously when loading via XHR or drag'n'drop.
+  *        Callback will receive (integer) loading progress in percents [0..100] and (object) event target.
+  *    pause: When audio is paused.
+  *    play: When play starts.
+  *    ready: When audio is loaded, decoded and the waveform drawn.
+  *        This fires before the waveform is drawn when using MediaElement, see waveform-ready.
+  *    scroll: When the scrollbar is moved. Callback will receive a ScrollEvent object.
+  *    seek: On seeking. Callback will receive (float) progress [0..1].
+  *    waveform-ready: Fires after the waveform is drawn when using the MediaElement backend.
+  *      If your using the WebAudio backend you can use ready.
+  *   zoom: On zooming. Callback will receive (integer) minPxPerSec.
+  */
   export type WavesurferEvent =
     "audioprocess" |
     "error" |
@@ -341,7 +343,22 @@ declare module "wavesurfer" {
      */
     zoom(pxPerSec: number): void;
   }
-  export default class WaveSurfer {
+  export class WaveSurfer {
     static create(options: WavesurferOptions): IWavesurfer
+  }
+}
+
+declare module "wavesurfer.js" {
+
+  function create(options: wavesurfer.WavesurferOptions): wavesurfer.IWavesurfer;
+
+  export {
+    create
+  };
+}
+
+declare module "wavesurfer.js/src/wavesurfer" {
+  export default class WaveSurfer extends wavesurfer.WaveSurfer {
+
   }
 }

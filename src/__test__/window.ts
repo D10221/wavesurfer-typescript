@@ -15,9 +15,11 @@ export const getWindow = (html?: string, imports?: string[]) => new Promise<Wind
 });
 
 import { jsdom, Config } from "jsdom";
+import "web-audio-test-api";
 export const loadWindow = (html?: string, options?: Config) => {
   const document = jsdom(html || defaultHtml, options);
   (global as any).window = document.defaultView;
   (global as any).document = window.document;
   (global as any).screen = window.screen;
+  (global as any).window.AudioContext = new AudioContext();
 };
