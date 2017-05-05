@@ -1,0 +1,7 @@
+typings/
+node_modules/
+*.log
+**/out/*
+**/built/*
+**/.vscode/*
+**/.idea//*
