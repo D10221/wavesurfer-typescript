@@ -10,17 +10,17 @@ import { jsdom } from "jsdom";
  */
 describe("jsdom 9.0.0", () => {
 
-    it("works", () => {
+  it("works", () => {
 
-        const document = jsdom(
-            '<a id="the-link" href="alink">jsdom!</a>'
-        );
-        (global as any).document = document;
-        (global as any).window = document.defaultView;
+    const document = jsdom(
+      '<a id="the-link" href="alink">jsdom!</a>'
+    );
+    (global as any).document = document;
+    (global as any).window = document.defaultView;
 
-        assert.equal(
-            (window.document.getElementById("the-link") as HTMLAnchorElement).href,
-            "alink"
-        );
-    });
+    assert.equal(
+      (window.document.getElementById("the-link") as HTMLAnchorElement).href,
+      "alink"
+    );
+  });
 });

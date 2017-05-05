@@ -2,10 +2,10 @@
   "name": "@types/wavesurfer",
   "version": "1.0.0",
   "description": "Types for https://wavesurfer-js.org",
-  "typings": "built/index.d.ts",
+  "typings": "src/index.d.ts",
   "scripts": {
     "lint": "tslint src/*.ts",
-    "format": "tsfmt -r",
+    "format": "tsfmt src/**/*.ts -r",
     "link": "npm link mocha electron-mocha electron",
     "test": "mocha ./test.js",
     "build": "tsc -p .",
