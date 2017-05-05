@@ -1,8 +1,0 @@
-{
-  "name": "wavesurfer-typescript",
-  "version": "1.0.0",
-  "main": "built/index.d.ts",
-  "globalDevDependencies": {
-    "node": "registry:env/node#6.0.0+20160824014937"
-  }
-}
