@@ -1,25 +1,29 @@
-import { env } from "jsdom";
-
-const defaultHtml = '<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>';
-
-export const getWindow = (html?: string, imports?: string[]) => new Promise<Window>((resolve, reject) => {
-  env(html || defaultHtml, imports,
-    (err: Error, window: Window) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(window);
-    }
-  );
-});
+export const defaultHtml = '<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>';
 
 import { jsdom, Config } from "jsdom";
-import "web-audio-test-api";
+
 export const loadWindow = (html?: string, options?: Config) => {
   const document = jsdom(html || defaultHtml, options);
+  (global as any).document = document;
   (global as any).window = document.defaultView;
-  (global as any).document = window.document;
   (global as any).screen = window.screen;
-  (global as any).window.AudioContext = new AudioContext();
+  propagateToGlobal(window);
 };
+
+// from mocha-jsdom https://github.com/rstacruz/mocha-jsdom/blob/master/index.js#L80
+export function propagateToGlobal(window: any) {
+  for (let key in window) {
+
+    if (!window.hasOwnProperty(key)) {
+      continue;
+    }
+
+    if (key in global) {
+      continue;
+    }
+
+    (global as any)[key] = window[key];
+  }
+}
+
+loadWindow();
