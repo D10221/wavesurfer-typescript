@@ -1,4 +1,9 @@
-declare namespace wavesurfer {
+/**
+ * WARNING: it should export default WaveSurfer;
+ * buit it doesn't 
+ * use with require("wavesurfer.js") as WaveSurfer
+ */
+declare module "wavesurfer.js" {
   type Disposer = () => void;
 
   export interface WavesurferOptions {
@@ -183,8 +188,7 @@ declare namespace wavesurfer {
     "seek" |
     "waveform-ready" |
     "zoom";
-
-  interface IWavesurfer {
+  export interface IWaveSurfer {
 
     /**
      *  Removes events, elements and disconnects Web Audio nodes.
@@ -343,22 +347,12 @@ declare namespace wavesurfer {
      */
     zoom(pxPerSec: number): void;
   }
-  export class WaveSurfer {
-    static create(options: WavesurferOptions): IWavesurfer
+  export type  WaveSurferFactory  = {
+     create(options: WavesurferOptions): IWaveSurfer;
   }
-}
+  export type WaveSurfer = IWaveSurfer & WaveSurferFactory;
 
-declare module "wavesurfer.js" {
+  // It's a wish: It doesn't export 'default' , while it's built from webpack as 'umd' ? 
+  // export default WaveSurfer;
 
-  function create(options: wavesurfer.WavesurferOptions): wavesurfer.IWavesurfer;
-
-  export {
-    create
-  };
-}
-
-declare module "wavesurfer.js/src/wavesurfer" {
-  export default class WaveSurfer extends wavesurfer.WaveSurfer {
-
-  }
 }
