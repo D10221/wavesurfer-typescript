@@ -2,7 +2,7 @@
   "name": "@types/wavesurfer",
   "version": "1.0.0",
   "description": "Typings for https://wavesurfer-js.org",
-  "typings": "src/index.d.ts",
+  "typings": "src/wavesurfer.d.ts",
   "scripts": {
     "globals": "npm install -g mocha electron electron-mocha",
     "lint": "tslint src/*.ts",

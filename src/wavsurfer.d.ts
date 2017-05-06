@@ -1,12 +1,12 @@
 /**
  * WARNING: it should export default WaveSurfer;
  * buit it doesn't 
- * use with require("wavesurfer.js") as WaveSurfer
+ * use * as WaveSurfer from "wavesurfer";
  */
 declare module "wavesurfer.js" {
   type Disposer = () => void;
 
-  export interface WavesurferOptions {
+  interface WavesurferOptions {
     /**
      * Use your own previously initialized AudioContext or leave blank
      */
@@ -176,7 +176,7 @@ declare module "wavesurfer.js" {
   *      If your using the WebAudio backend you can use ready.
   *   zoom: On zooming. Callback will receive (integer) minPxPerSec.
   */
-  export type WavesurferEvent =
+  type WavesurferEvent =
     "audioprocess" |
     "error" |
     "finish" |
@@ -188,7 +188,8 @@ declare module "wavesurfer.js" {
     "seek" |
     "waveform-ready" |
     "zoom";
-  export interface IWaveSurfer {
+  class WaveSurfer {
+    constructor(options: WavesurferOptions) ;
 
     /**
      *  Removes events, elements and disconnects Web Audio nodes.
@@ -346,11 +347,26 @@ declare module "wavesurfer.js" {
      * Horizontally zooms the waveform in and out. The parameter is a number of horizontal pixels per second of audio. It also changes the parameter minPxPerSec and enables the scrollParent option.
      */
     zoom(pxPerSec: number): void;
-  }
-  export type  WaveSurferFactory  = {
-     create(options: WavesurferOptions): IWaveSurfer;
-  }
-  export type WaveSurfer = IWaveSurfer & WaveSurferFactory;
+
+     /**
+     * Initialise the wave
+     * 
+     * @example
+     * var wavesurfer = new WaveSurfer(params);
+     * wavesurfer.init();
+     * @return {this}
+     */
+    init(): void;
+
+    /*
+     * Factory
+     */
+    static create(options: WavesurferOptions): WaveSurfer;
+  }  
+
+  namespace WaveSurfer {}
+
+  export = WaveSurfer;
 
   // It's a wish: It doesn't export 'default' , while it's built from webpack as 'umd' ? 
   // export default WaveSurfer;
