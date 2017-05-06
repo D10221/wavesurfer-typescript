@@ -1,0 +1,7 @@
+node_modules/
+built/
+src/__test__
+.vscode/
+.travis.yml
+tslint.json
+tsconfig.json

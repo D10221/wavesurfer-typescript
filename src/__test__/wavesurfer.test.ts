@@ -11,7 +11,7 @@ describe("wavesurfer", async () => {
     (window as any).AudioContext = AudioContext;
 
     const container = document.createElement("div");
-    const _wave = wavesurfer.create({ container });
+    const _wave = wavesurfer.create({ container, audioContext: new AudioContext() });
     assert.ok(_wave);
 
   });
